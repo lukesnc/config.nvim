@@ -2,7 +2,6 @@
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-vim.g.have_nerd_font = false
 vim.opt.number = true -- Line nums on
 vim.opt.relativenumber = true -- Relative line nums
 vim.opt.mouse = "a" -- Enable mouse mode, can be useful for resizing splits for example!
@@ -490,13 +489,13 @@ require("lazy").setup({
     end,
   },
 
-  { -- Collection of various small independent plugins/modules
+  { -- Statusline
     "echasnovski/mini.nvim",
     config = function()
       -- Simple and easy statusline.
       local statusline = require("mini.statusline")
       -- set use_icons to true if you have a Nerd Font
-      statusline.setup({ use_icons = vim.g.have_nerd_font })
+      statusline.setup({ use_icons = false })
 
       ---@diagnostic disable-next-line: duplicate-set-field
       statusline.section_location = function()
