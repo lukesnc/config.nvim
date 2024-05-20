@@ -49,6 +49,20 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Plugin setup
 require("lazy").setup({
+  { -- Set clorscheme.
+    "rose-pine/nvim",
+    name = "rose-pine",
+    opts = { disable_italics = true },
+    priority = 1000, -- Make sure to load this before all the other start plugins.
+    init = function()
+      -- Load the colorscheme here.
+      vim.cmd.colorscheme("rose-pine-moon")
+
+      -- You can configure highhlights by doing something like:
+      vim.cmd.hi("Comment gui=none")
+    end,
+  },
+
   "tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 
   -- "gc" to comment visual regions/lines
@@ -447,20 +461,6 @@ require("lazy").setup({
           { name = "path" },
         },
       })
-    end,
-  },
-
-  { -- You can easily change to a different colorscheme.
-    "rose-pine/nvim",
-    name = "rose-pine",
-    opts = { disable_italics = true },
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      -- Load the colorscheme here.
-      vim.cmd.colorscheme("rose-pine-moon")
-
-      -- You can configure highhlights by doing something like:
-      vim.cmd.hi("Comment gui=none")
     end,
   },
 
