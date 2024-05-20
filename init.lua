@@ -2,6 +2,7 @@
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+vim.g.have_nerd_font = false
 vim.opt.number = true -- Line nums on
 vim.opt.relativenumber = true -- Relative line nums
 vim.opt.mouse = 'a' -- Enable mouse mode, can be useful for resizing splits for example!
@@ -18,6 +19,10 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.opt.inccommand = 'split' -- Preview substitutions live, as you type!
 vim.opt.cursorline = true -- Show which line your cursor is on
 vim.opt.scrolloff = 10 -- Minimal number of screen lines to keep above and below the cursor.
+
+-- Set highlight on search, but clear on pressing <Esc> in normal mode
+vim.opt.hlsearch = true
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -491,7 +496,7 @@ require('lazy').setup {
       -- Simple and easy statusline.
       local statusline = require 'mini.statusline'
       -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = false }
+      statusline.setup { use_icons = vim.g.have_nerd_font }
 
       ---@diagnostic disable-next-line: duplicate-set-field
       statusline.section_location = function()
