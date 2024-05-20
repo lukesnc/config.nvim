@@ -85,6 +85,11 @@ require('lazy').setup {
     },
     config = function()
       require('telescope').setup {
+        pickers = {
+          find_files = {
+            hidden = true,
+          },
+        },
         defaults = {
           -- Ignore options for fuzzy find
           file_ignore_patterns = {
