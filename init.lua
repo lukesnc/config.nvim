@@ -46,9 +46,9 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Plugin setup
+-- Plugin configuration
 require("lazy").setup({
-  { -- Set clorscheme.
+  { -- Set clorscheme
     "rose-pine/nvim",
     name = "rose-pine",
     opts = { disable_italics = true },
