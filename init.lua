@@ -48,7 +48,14 @@ require("lazy").setup({
   { -- Set colorscheme
     "rose-pine/nvim",
     name = "rose-pine",
-    opts = { disable_italics = true },
+    opts = {
+      variant = "moon",
+      styles = {
+        bold = true,
+        italic = false,
+        transparency = false,
+      },
+    },
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
       -- Load the colorscheme here.
