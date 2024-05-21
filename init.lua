@@ -46,7 +46,7 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Plugin configuration
 require("lazy").setup({
-  { -- Set clorscheme
+  { -- Set colorscheme
     "rose-pine/nvim",
     name = "rose-pine",
     opts = { disable_italics = true },
