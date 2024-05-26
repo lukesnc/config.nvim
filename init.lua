@@ -48,6 +48,8 @@ require("lazy").setup({
   { -- Set colorscheme
     "rose-pine/nvim",
     name = "rose-pine",
+    lazy = false,
+    priority = 1000,
     opts = {
       variant = "moon",
       styles = {
@@ -56,7 +58,6 @@ require("lazy").setup({
         transparency = false,
       },
     },
-    priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
       -- Load the colorscheme here.
       vim.cmd.colorscheme("rose-pine")
@@ -157,7 +158,6 @@ require("lazy").setup({
 
   { -- Autoformat
     "stevearc/conform.nvim",
-    lazy = false,
     opts = {
       formatters_by_ft = {
         lua = { "stylua" },
@@ -173,6 +173,8 @@ require("lazy").setup({
   { -- Autocompletion
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
+    lazy = false,
+    priority = 100,
     dependencies = {
       { "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
       "saadparwaiz1/cmp_luasnip",
@@ -250,6 +252,7 @@ require("lazy").setup({
   { -- Highlight, edit, and navigate code
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+    lazy = false,
     opts = {
       ensure_installed = { "bash", "c", "diff", "html", "lua", "luadoc", "markdown", "vim", "vimdoc" },
       sync_install = false,
