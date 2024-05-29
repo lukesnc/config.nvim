@@ -126,7 +126,10 @@ require("lazy").setup({
     config = function()
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(event)
-          --  Most Language Servers support renaming across files, etc.
+          -- Jump to the definition of the word under your cursor.
+          vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions)
+
+          -- Most Language Servers support renaming across files, etc.
           vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = event.buf })
         end,
       })
