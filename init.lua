@@ -62,9 +62,10 @@ require("lazy").setup({
     end,
   },
 
-  "tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
+  -- Detect tabstop and shiftwidth automatically
+  "tpope/vim-sleuth",
 
-  { -- Adds git related signs to the gutter, as well as utilities for managing changes
+  { -- gitsigns
     "lewis6991/gitsigns.nvim",
     opts = {
       signs = {
@@ -166,7 +167,6 @@ require("lazy").setup({
         python = { "isort", "black" },
       },
       format_on_save = {
-        -- These options will be passed to conform.format()
         timeout_ms = 500,
         lsp_fallback = true,
       },
@@ -185,7 +185,6 @@ require("lazy").setup({
       "hrsh7th/cmp-path",
     },
     config = function()
-      -- See `:help cmp`
       local cmp = require("cmp")
       local luasnip = require("luasnip")
       luasnip.config.setup({})
@@ -273,9 +272,7 @@ require("lazy").setup({
   { -- Statusline
     "echasnovski/mini.nvim",
     config = function()
-      -- Simple and easy statusline.
       local statusline = require("mini.statusline")
-      -- set use_icons to true if you have a Nerd Font
       statusline.setup({ use_icons = false })
 
       ---@diagnostic disable-next-line: duplicate-set-field
