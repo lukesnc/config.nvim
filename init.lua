@@ -51,7 +51,6 @@ require("lazy").setup({
     lazy = false,
     priority = 1000,
     opts = {
-      variant = "moon",
       styles = {
         bold = true,
         italic = false,
@@ -59,8 +58,7 @@ require("lazy").setup({
       },
     },
     init = function()
-      -- Load the colorscheme here.
-      vim.cmd.colorscheme("rose-pine")
+      vim.cmd.colorscheme("rose-pine-moon")
     end,
   },
 
