@@ -270,7 +270,7 @@ require("lazy").setup({
   },
 
   { -- Statusline
-    "echasnovski/mini.nvim",
+    "echasnovski/mini.statusline",
     config = function()
       local statusline = require("mini.statusline")
       statusline.setup({ use_icons = false })
