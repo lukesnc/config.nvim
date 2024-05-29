@@ -1,6 +1,6 @@
 ### neovim is cool
 
 ```bash
-sudo pacman -S ripgrep unzip
+sudo pacman -S ripgrep unzip wget
 ```
 
