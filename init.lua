@@ -164,6 +164,7 @@ require("lazy").setup({
       formatters_by_ft = {
         lua = { "stylua" },
         python = { "isort", "black" },
+        markdown = { "markdownlint" },
       },
       format_on_save = {
         timeout_ms = 500,
