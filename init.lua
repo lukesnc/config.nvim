@@ -15,6 +15,7 @@ vim.opt.inccommand = "split"
 vim.opt.scrolloff = 10
 vim.opt.splitright = true
 vim.opt.splitbelow = true
+vim.opt.clipboard = "unnamedplus"
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
