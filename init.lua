@@ -116,12 +116,21 @@ require("lazy").setup({
   { -- LSP Configuration & Plugins
     "neovim/nvim-lspconfig",
     dependencies = {
-      { "williamboman/mason.nvim" },
+      "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       { "j-hui/fidget.nvim", opts = {} },
-      { "folke/neodev.nvim", opts = {} },
+      {
+        "folke/lazydev.nvim",
+        ft = "lua",
+        opts = {
+          library = {
+            { path = "luvit-meta/library", words = { "vim%.uv" } },
+          },
+        },
+      },
     },
+
     config = function()
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(event)
