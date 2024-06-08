@@ -120,7 +120,7 @@ require("lazy").setup({
       "williamboman/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       { "j-hui/fidget.nvim", opts = {} },
-      {
+      { -- LazyDev for LuaLS
         "folke/lazydev.nvim",
         ft = "lua",
         opts = {
@@ -136,32 +136,26 @@ require("lazy").setup({
         callback = function(event)
           -- Jump to the definition of the word under your cursor.
           vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions)
-
           -- Most Language Servers support renaming across files, etc.
           vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = event.buf })
         end,
       })
 
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      -- Enable the following language servers
-      local servers = {
-        lua_ls = {},
-        stylua = {},
-      }
-
-      -- Ensure the servers and tools above are installed
       require("mason").setup()
-      local ensure_installed = vim.tbl_keys(servers or {})
-      require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-
+      require("mason-tool-installer").setup({
+        ensure_installed = {
+          "lua_ls",
+          "stylua",
+        },
+      })
       require("mason-lspconfig").setup({
         handlers = {
           function(server_name)
-            local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-            require("lspconfig")[server_name].setup(server)
+            require("lspconfig")[server_name].setup({
+              capabilities = capabilities,
+            })
           end,
         },
       })
