@@ -130,7 +130,6 @@ require("lazy").setup({
         },
       },
     },
-
     config = function()
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(event)
@@ -141,8 +140,6 @@ require("lazy").setup({
         end,
       })
 
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
       require("mason").setup()
       require("mason-tool-installer").setup({
         ensure_installed = {
@@ -150,6 +147,9 @@ require("lazy").setup({
           "stylua",
         },
       })
+
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
       require("mason-lspconfig").setup({
         handlers = {
           function(server_name)
