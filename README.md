@@ -1,7 +1,5 @@
 ### Neovim is cool
 
-Setup:
-
 ```bash
 sudo pacman -S neovim git ripgrep unzip wget
 ```
