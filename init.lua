@@ -4,7 +4,6 @@ vim.g.maplocalleader = " "
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.mouse = "a"
-vim.opt.showmode = false
 vim.opt.breakindent = true
 vim.opt.undofile = true
 vim.opt.ignorecase = true
@@ -228,19 +227,6 @@ require("lazy").setup({
     },
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
-    end,
-  },
-
-  { -- Statusline
-    "echasnovski/mini.statusline",
-    config = function()
-      local statusline = require("mini.statusline")
-      statusline.setup({ use_icons = false })
-
-      ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return "%2l:%-2v"
-      end
     end,
   },
 })
