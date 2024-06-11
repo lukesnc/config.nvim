@@ -144,7 +144,6 @@ require("lazy").setup({
     opts = {
       formatters_by_ft = {
         lua = { "stylua" },
-        python = { "isort", "black" },
         markdown = { "markdownlint" },
       },
       format_on_save = {
