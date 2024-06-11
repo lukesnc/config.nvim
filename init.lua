@@ -47,7 +47,6 @@ require("lazy").setup({
   { -- Set colorscheme
     "rose-pine/nvim",
     name = "rose-pine",
-    lazy = false,
     priority = 1000,
     opts = {
       styles = {
@@ -160,8 +159,6 @@ require("lazy").setup({
   { -- Autocompletion
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
-    lazy = false,
-    priority = 100,
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-path",
@@ -196,7 +193,6 @@ require("lazy").setup({
   { -- Treesitter
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    lazy = false,
     opts = {
       ensure_installed = { "bash", "c", "diff", "html", "lua", "luadoc", "markdown", "vim", "vimdoc" },
       sync_install = false,
