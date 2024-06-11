@@ -1,7 +1,7 @@
 ### Neovim is cool
 
 ```bash
-sudo pacman -S neovim git ripgrep unzip wget
+sudo pacman -S neovim git ripgrep unzip
 ```
 
 For clipboard to work on WSL:
