@@ -50,9 +50,7 @@ require("lazy").setup({
     priority = 1000,
     opts = {
       styles = {
-        bold = true,
         italic = false,
-        transparency = false,
       },
     },
     init = function()
