@@ -90,14 +90,14 @@ require("lazy").setup({
     end,
   },
 
-  { -- LSP Configuration & Plugins
+  { -- LSP Config + Mason
     "neovim/nvim-lspconfig",
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       { "j-hui/fidget.nvim", opts = {} },
-      { -- LazyDev for LuaLS
+      {
         "folke/lazydev.nvim",
         ft = "lua",
         opts = {
