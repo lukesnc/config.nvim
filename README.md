@@ -1,12 +1,5 @@
 ## Installation
 
-```bash
-sudo pacman -S neovim git ripgrep unzip npm
-git clone https://github.com/lukesnc/config.nvim.git ~/.config/nvim
-```
+Basic requirements: `neovim git ripgrep unzip`
 
-For clipboard to work on WSL:
-
-```bash
-sudo pacman -S wl-clipboard
-```
+For clipboard to work on WSL: `wl-clipboard`
