@@ -147,7 +147,7 @@ require("lazy").setup({
       },
       format_on_save = {
         timeout_ms = 500,
-        lsp_fallback = true,
+        lsp_format = "fallback",
       },
     },
   },
