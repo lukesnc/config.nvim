@@ -4,16 +4,6 @@ return {
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      { "j-hui/fidget.nvim", opts = {} },
-      {
-        "folke/lazydev.nvim",
-        ft = "lua",
-        opts = {
-          library = {
-            { path = "luvit-meta/library", words = { "vim%.uv" } },
-          },
-        },
-      },
     },
     config = function()
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -41,6 +31,11 @@ return {
     end,
   },
 
+  { -- Fidget notif + LSP messages
+    "j-hui/fidget.nvim",
+    opts = {},
+  },
+
   { -- Autoformat
     "stevearc/conform.nvim",
     opts = {
@@ -55,13 +50,23 @@ return {
     },
   },
 
+  { -- LuaLS setup
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = {
+      library = {
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
+      },
+    },
+  },
+
   { -- Autocompletion
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-path",
-      { "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
+      "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
     },
     config = function()
