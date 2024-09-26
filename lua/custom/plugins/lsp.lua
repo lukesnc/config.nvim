@@ -31,9 +31,17 @@ return {
     end,
   },
 
-  { -- Fidget notif + LSP messages
-    "j-hui/fidget.nvim",
-    opts = {},
+  -- Fidget notif + LSP messages
+  { "j-hui/fidget.nvim", opts = {} },
+
+  { -- LuaLS setup
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = {
+      library = {
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
+      },
+    },
   },
 
   { -- Autoformat
@@ -46,16 +54,6 @@ return {
       format_on_save = {
         timeout_ms = 500,
         lsp_format = "fallback",
-      },
-    },
-  },
-
-  { -- LuaLS setup
-    "folke/lazydev.nvim",
-    ft = "lua",
-    opts = {
-      library = {
-        { path = "luvit-meta/library", words = { "vim%.uv" } },
       },
     },
   },
