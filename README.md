@@ -1,5 +1,5 @@
-## Installation
+## Neovim more like
 
-Basic requirements: `neovim git ripgrep unzip`
+Basic required packages: `neovim git ripgrep unzip`
 
 For clipboard to work on WSL: `wl-clipboard`
