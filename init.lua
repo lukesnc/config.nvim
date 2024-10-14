@@ -45,8 +45,8 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Setup lazy.nvim
-require("lazy").setup({
+-- List of plugins
+local plugins = {
   { -- Colorscheme
     "rose-pine/nvim",
     name = "rose-pine",
@@ -204,4 +204,11 @@ require("lazy").setup({
       vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
     end,
   },
+}
+
+-- Setup lazy.nvim
+require("lazy").setup({
+  spec = plugins,
 })
+
+-- Misc settings go down here
