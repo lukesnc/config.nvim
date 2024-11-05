@@ -117,7 +117,7 @@ local plugins = {
     opts = {
       formatters_by_ft = {
         lua = { "stylua" },
-        markdown = { "markdownlint" },
+        markdown = { "mdformat" },
       },
       format_on_save = {
         timeout_ms = 500,
