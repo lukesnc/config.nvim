@@ -191,6 +191,8 @@ local plugins = {
           file_ignore_patterns = {
             ".git/",
             "node_modules",
+            "target/",
+            "build/",
           },
         },
         pickers = {
