@@ -56,6 +56,7 @@ local plugins = {
         italic = false,
       },
       disable_background = true,
+      disable_float_background = true,
     },
     init = function()
       vim.cmd("colorscheme rose-pine")
