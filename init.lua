@@ -59,7 +59,7 @@ local plugins = {
       disable_float_background = true,
     },
     init = function()
-      vim.cmd("colorscheme rose-pine")
+      vim.cmd("colorscheme rose-pine-moon")
     end,
   },
 
