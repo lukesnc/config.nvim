@@ -120,6 +120,9 @@ local plugins = {
       formatters_by_ft = {
         lua = { "stylua" },
         markdown = { "mdformat" },
+        javascript = { "prettierd" },
+        html = { "prettierd" },
+        css = { "prettierd" },
       },
       format_on_save = {
         timeout_ms = 500,
