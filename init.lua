@@ -87,9 +87,6 @@ local plugins = {
 
       require("mason").setup()
       require("mason-lspconfig").setup({
-        ensure_installed = {
-          "lua_ls",
-        },
         handlers = {
           function(server_name)
             require("lspconfig")[server_name].setup({
@@ -99,16 +96,6 @@ local plugins = {
         },
       })
     end,
-  },
-
-  { -- LuaLS setup
-    "folke/lazydev.nvim",
-    ft = "lua",
-    opts = {
-      library = {
-        { path = "luvit-meta/library", words = { "vim%.uv" } },
-      },
-    },
   },
 
   -- Fidget notif + LSP messages
