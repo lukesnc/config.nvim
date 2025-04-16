@@ -75,8 +75,12 @@ local plugins = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
 
-      -- Fidget notif + LSP messages
-      { "j-hui/fidget.nvim", opts = {} },
+      { -- Fidget notif + LSP messages
+        "j-hui/fidget.nvim",
+        opts = {
+          notification = { window = { winblend = 0 } },
+        },
+      },
 
       "saghen/blink.cmp",
     },
