@@ -74,6 +74,11 @@ local plugins = {
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
+
+      -- Fidget notif + LSP messages
+      { "j-hui/fidget.nvim", opts = {} },
+
+      "saghen/blink.cmp",
     },
     config = function()
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -83,7 +88,7 @@ local plugins = {
         end,
       })
 
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local capabilities = require("blink.cmp").get_lsp_capabilities()
 
       require("mason").setup()
       require("mason-lspconfig").setup({
@@ -98,8 +103,21 @@ local plugins = {
     end,
   },
 
-  -- Fidget notif + LSP messages
-  { "j-hui/fidget.nvim", opts = {} },
+  { -- Autocompletion
+    "saghen/blink.cmp",
+    version = "1.*",
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      keymap = { preset = "default" },
+      completion = { documentation = { auto_show = false } },
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
+      },
+      fuzzy = { implementation = "lua" },
+    },
+    opts_extend = { "sources.default" },
+  },
 
   { -- Autoformat
     "stevearc/conform.nvim",
@@ -118,42 +136,6 @@ local plugins = {
     },
   },
 
-  { -- Autocompletion
-    "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-buffer",
-      "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
-    },
-    config = function()
-      local cmp = require("cmp")
-
-      cmp.setup({
-        snippet = {
-          expand = function(args)
-            require("luasnip").lsp_expand(args.body)
-          end,
-        },
-        mapping = cmp.mapping.preset.insert({
-          ["<C-n>"] = cmp.mapping.select_next_item(),
-          ["<C-p>"] = cmp.mapping.select_prev_item(),
-          ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        }),
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "path" },
-          { name = "buffer" },
-        }),
-      })
-    end,
-  },
-
   { -- Treesitter
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -161,7 +143,18 @@ local plugins = {
       local configs = require("nvim-treesitter.configs")
 
       configs.setup({
-        ensure_installed = { "bash", "c", "python", "diff", "html", "lua", "luadoc", "markdown", "vim", "vimdoc" },
+        ensure_installed = {
+          "bash",
+          "html",
+          "c",
+          "diff",
+          "lua",
+          "vim",
+          "vimdoc",
+          "query",
+          "markdown",
+          "markdown_inline",
+        },
         sync_install = false,
         auto_install = true,
         highlight = {
