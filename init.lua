@@ -74,6 +74,7 @@ local plugins = {
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
+      "saghen/blink.cmp",
 
       { -- Fidget notif + LSP messages
         "j-hui/fidget.nvim",
@@ -81,8 +82,6 @@ local plugins = {
           notification = { window = { winblend = 0 } },
         },
       },
-
-      "saghen/blink.cmp",
     },
     config = function()
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -161,10 +160,8 @@ local plugins = {
         },
         sync_install = false,
         auto_install = true,
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = false,
-        },
+        highlight = { enable = true },
+        indent = { enable = true },
       })
     end,
   },
