@@ -69,6 +69,38 @@ local plugins_any = {
   -- Gitsigns
   { "lewis6991/gitsigns.nvim", opts = {} },
 
+
+  { -- Telescope
+    "nvim-telescope/telescope.nvim",
+    branch = "0.1.x",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("telescope").setup({
+        defaults = {
+          file_ignore_patterns = {
+            ".git/",
+            "node_modules",
+            "target/",
+            "build/",
+          },
+        },
+        pickers = {
+          find_files = {
+            hidden = true,
+          },
+        },
+      })
+
+      local builtin = require("telescope.builtin")
+      vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
+      vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
+      vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
+      vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
+    end,
+  },
+}
+
+local plugins_linux = {
   { -- LSP Config + Mason
     "neovim/nvim-lspconfig",
     dependencies = {
@@ -139,38 +171,6 @@ local plugins_any = {
     },
   },
 
-
-  { -- Telescope
-    "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("telescope").setup({
-        defaults = {
-          file_ignore_patterns = {
-            ".git/",
-            "node_modules",
-            "target/",
-            "build/",
-          },
-        },
-        pickers = {
-          find_files = {
-            hidden = true,
-          },
-        },
-      })
-
-      local builtin = require("telescope.builtin")
-      vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
-      vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
-      vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
-      vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
-    end,
-  },
-}
-
-local plugins_linux = {
   { -- Treesitter
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
