@@ -46,7 +46,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- List of plugins
-local plugins = {
+local plugins_any = {
   { -- Colorscheme
     "rose-pine/nvim",
     name = "rose-pine",
@@ -139,32 +139,6 @@ local plugins = {
     },
   },
 
-  { -- Treesitter
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = function()
-      local configs = require("nvim-treesitter.configs")
-
-      configs.setup({
-        ensure_installed = {
-          "bash",
-          "html",
-          "c",
-          "diff",
-          "lua",
-          "vim",
-          "vimdoc",
-          "query",
-          "markdown",
-          "markdown_inline",
-        },
-        sync_install = false,
-        auto_install = true,
-        highlight = { enable = true },
-        indent = { enable = true },
-      })
-    end,
-  },
 
   { -- Telescope
     "nvim-telescope/telescope.nvim",
@@ -195,6 +169,41 @@ local plugins = {
     end,
   },
 }
+
+local plugins_linux = {
+  { -- Treesitter
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+      local configs = require("nvim-treesitter.configs")
+
+      configs.setup({
+        ensure_installed = {
+          "bash",
+          "html",
+          "c",
+          "diff",
+          "lua",
+          "vim",
+          "vimdoc",
+          "query",
+          "markdown",
+          "markdown_inline",
+        },
+        sync_install = false,
+        auto_install = true,
+        highlight = { enable = true },
+        indent = { enable = true },
+      })
+    end,
+  },
+}
+
+-- Nerf the setup if on Windows
+local plugins = plugins_any
+if not vim.fn.has("win32") then
+  vim.list_extend(plugins, plugins_linux)
+end
 
 -- Setup lazy.nvim
 require("lazy").setup({
