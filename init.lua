@@ -69,7 +69,6 @@ local plugins_any = {
   -- Gitsigns
   { "lewis6991/gitsigns.nvim", opts = {} },
 
-
   { -- Telescope
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
