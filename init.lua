@@ -201,7 +201,7 @@ local plugins_linux = {
 
 -- Nerf the setup if on Windows
 local plugins = plugins_any
-if not vim.fn.has("win32") then
+if vim.fn.has("win32") ~= 1 then
   vim.list_extend(plugins, plugins_linux)
 end
 
