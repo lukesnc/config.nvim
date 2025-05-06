@@ -78,10 +78,10 @@ local plugins_any = {
       require("telescope").setup({
         defaults = {
           file_ignore_patterns = {
-            "%.git[%/\\]",
+            "%.git[/\\]",
             "node_modules",
-            "target[%/\\]",
-            "build[%/\\]",
+            "target[/\\]",
+            "build[/\\]",
           },
         },
         pickers = {
