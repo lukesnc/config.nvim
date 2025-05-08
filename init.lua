@@ -56,14 +56,15 @@ local plugins = {
     "rose-pine/nvim",
     name = "rose-pine",
     priority = 1000,
-    opts = {
-      styles = {
-        italic = false,
-      },
-      disable_background = true,
-      disable_float_background = true,
-    },
-    init = function()
+    config = function()
+      require("rose-pine").setup({
+        styles = {
+          italic = false,
+        },
+        disable_background = true,
+        disable_float_background = true,
+      })
+
       vim.cmd("colorscheme rose-pine-moon")
     end,
   },
@@ -77,8 +78,8 @@ local plugins = {
   { -- LSP Config + Mason
     "neovim/nvim-lspconfig",
     dependencies = {
-      { "williamboman/mason.nvim", opts = {} },
-      { "williamboman/mason-lspconfig.nvim", opts = {} },
+      { "mason-org/mason.nvim", opts = {} },
+      { "mason-org/mason-lspconfig.nvim", opts = {} },
 
       { -- Fidget notif + LSP messages
         "j-hui/fidget.nvim",
