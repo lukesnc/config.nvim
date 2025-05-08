@@ -77,15 +77,12 @@ local plugins = {
   { -- LSP Config + Mason
     "neovim/nvim-lspconfig",
     dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-      "saghen/blink.cmp",
+      { "williamboman/mason.nvim", opts = {} },
+      { "williamboman/mason-lspconfig.nvim", opts = {} },
 
       { -- Fidget notif + LSP messages
         "j-hui/fidget.nvim",
-        opts = {
-          notification = { window = { winblend = 0 } },
-        },
+        opts = { notification = { window = { winblend = 0 } } },
       },
     },
     config = function()
@@ -94,19 +91,6 @@ local plugins = {
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = event.buf })
           vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = event.buf })
         end,
-      })
-
-      local capabilities = require("blink.cmp").get_lsp_capabilities()
-
-      require("mason").setup()
-      require("mason-lspconfig").setup({
-        handlers = {
-          function(server_name)
-            require("lspconfig")[server_name].setup({
-              capabilities = capabilities,
-            })
-          end,
-        },
       })
     end,
   },
