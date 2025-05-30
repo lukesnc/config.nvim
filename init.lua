@@ -90,7 +90,6 @@ local plugins = {
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(event)
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = event.buf })
-          vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = event.buf })
         end,
       })
     end,
