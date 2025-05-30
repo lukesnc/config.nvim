@@ -75,6 +75,67 @@ local plugins = {
   -- Gitsigns
   { "lewis6991/gitsigns.nvim", opts = {} },
 
+  { -- LSP Config + Mason
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      { "mason-org/mason.nvim", opts = {} },
+      { "mason-org/mason-lspconfig.nvim", opts = {} },
+
+      { -- Fidget notif + LSP messages
+        "j-hui/fidget.nvim",
+        opts = { notification = { window = { winblend = 0 } } },
+      },
+    },
+    config = function()
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(event)
+          vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = event.buf })
+        end,
+      })
+    end,
+  },
+
+  { -- Autocompletion
+    "saghen/blink.cmp",
+    version = "1.*",
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      keymap = { preset = "default" },
+      completion = { documentation = { auto_show = false } },
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
+      },
+      fuzzy = { implementation = "lua" },
+    },
+    opts_extend = { "sources.default" },
+  },
+
+  { -- Autoformat
+    "stevearc/conform.nvim",
+    config = function()
+      require("conform").setup({
+        formatters_by_ft = {
+          lua = { "stylua" },
+          markdown = { "mdformat" },
+          javascript = { "prettierd" },
+          html = { "prettierd" },
+          css = { "prettierd" },
+        },
+        format_on_save = function()
+          if vim.g.autoformat then
+            return { timeout_ms = 500, lsp_format = "fallback" }
+          end
+        end,
+      })
+
+      -- Enable/disable autoformatting, disabled by default
+      vim.api.nvim_create_user_command("FormatToggle", function()
+        vim.g.autoformat = not vim.g.autoformat
+      end, {})
+    end,
+  },
+
   { -- Treesitter
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -131,64 +192,6 @@ local plugins = {
     end,
   },
 }
-
-local plugins_extra = {
-  { -- LSP Config + Mason
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      { "mason-org/mason.nvim", opts = {} },
-      { "mason-org/mason-lspconfig.nvim", opts = {} },
-
-      { -- Fidget notif + LSP messages
-        "j-hui/fidget.nvim",
-        opts = { notification = { window = { winblend = 0 } } },
-      },
-    },
-    config = function()
-      vim.api.nvim_create_autocmd("LspAttach", {
-        callback = function(event)
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = event.buf })
-        end,
-      })
-    end,
-  },
-
-  { -- Autocompletion
-    "saghen/blink.cmp",
-    version = "1.*",
-    ---@module 'blink.cmp'
-    ---@type blink.cmp.Config
-    opts = {
-      keymap = { preset = "default" },
-      completion = { documentation = { auto_show = false } },
-      sources = {
-        default = { "lsp", "path", "snippets", "buffer" },
-      },
-      fuzzy = { implementation = "lua" },
-    },
-    opts_extend = { "sources.default" },
-  },
-
-  { -- Autoformat
-    "stevearc/conform.nvim",
-    opts = {
-      formatters_by_ft = {
-        lua = { "stylua" },
-        markdown = { "mdformat" },
-        javascript = { "prettierd" },
-        html = { "prettierd" },
-        css = { "prettierd" },
-      },
-      format_on_save = {
-        timeout_ms = 500,
-        lsp_format = "fallback",
-      },
-    },
-  },
-}
-
--- Supercharge setup (LSP shit)
-vim.list_extend(plugins, plugins_extra)
 
 -- Setup lazy.nvim
 require("lazy").setup({ spec = plugins })
