@@ -122,17 +122,11 @@ local plugins = {
           html = { "prettierd" },
           css = { "prettierd" },
         },
-        format_on_save = function()
-          if vim.g.autoformat then
-            return { timeout_ms = 500, lsp_format = "fallback" }
-          end
-        end,
       })
 
-      -- Enable/disable autoformatting, disabled by default
-      vim.api.nvim_create_user_command("FormatToggle", function()
-        vim.g.autoformat = not vim.g.autoformat
-      end, {})
+      vim.keymap.set("n", "<leader>F", function()
+        require("conform").format({ async = true, lsp_format = "fallback" })
+      end)
     end,
   },
 
