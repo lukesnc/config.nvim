@@ -100,14 +100,8 @@ local plugins = {
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
-      keymap = { preset = "default" },
-      completion = { documentation = { auto_show = false } },
-      sources = {
-        default = { "lsp", "path", "snippets", "buffer" },
-      },
-      fuzzy = { implementation = "lua" },
+      fuzzy = { implementation = "prefer_rust" },
     },
-    opts_extend = { "sources.default" },
   },
 
   { -- Autoformat
