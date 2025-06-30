@@ -18,7 +18,9 @@ vim.opt.scrolloff = 10
 
 vim.opt.undofile = true
 vim.opt.updatetime = 250
-vim.opt.clipboard = "unnamedplus"
+vim.schedule(function()
+  vim.opt.clipboard = "unnamedplus"
+end)
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
