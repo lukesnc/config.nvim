@@ -12,6 +12,9 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.scrolloff = 10
