@@ -78,12 +78,16 @@ local plugins = {
   -- Gitsigns
   { "lewis6991/gitsigns.nvim", opts = {} },
 
-  { -- LSP Config + Mason
+  { -- LSP
     "mason-org/mason-lspconfig.nvim",
     opts = {},
     dependencies = {
-      { "mason-org/mason.nvim", opts = {} },
       "neovim/nvim-lspconfig",
+      { "mason-org/mason.nvim", opts = {} },
+      {
+        "j-hui/fidget.nvim",
+        opts = { notification = { window = { winblend = 0 } } },
+      },
     },
   },
 
