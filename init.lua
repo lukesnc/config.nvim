@@ -21,9 +21,7 @@ vim.opt.scrolloff = 10
 
 vim.opt.undofile = true
 vim.opt.updatetime = 250
-vim.schedule(function()
-  vim.opt.clipboard = "unnamedplus"
-end)
+vim.opt.clipboard = "unnamedplus"
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
@@ -81,23 +79,12 @@ local plugins = {
   { "lewis6991/gitsigns.nvim", opts = {} },
 
   { -- LSP Config + Mason
-    "neovim/nvim-lspconfig",
+    "mason-org/mason-lspconfig.nvim",
+    opts = {},
     dependencies = {
       { "mason-org/mason.nvim", opts = {} },
-      { "mason-org/mason-lspconfig.nvim", opts = {} },
-
-      { -- Fidget notif + LSP messages
-        "j-hui/fidget.nvim",
-        opts = { notification = { window = { winblend = 0 } } },
-      },
+      "neovim/nvim-lspconfig",
     },
-    config = function()
-      vim.api.nvim_create_autocmd("LspAttach", {
-        callback = function(event)
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = event.buf })
-        end,
-      })
-    end,
   },
 
   { -- Autocompletion
@@ -131,11 +118,10 @@ local plugins = {
 
   { -- Treesitter
     "nvim-treesitter/nvim-treesitter",
+    lazy = false,
     build = ":TSUpdate",
     config = function()
-      local configs = require("nvim-treesitter.configs")
-
-      configs.setup({
+      require("nvim-treesitter.configs").setup({
         ensure_installed = {
           "bash",
           "html",
