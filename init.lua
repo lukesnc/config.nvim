@@ -35,144 +35,105 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
--- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
-end
-vim.opt.rtp:prepend(lazypath)
-
--- List of plugins
-local plugins = {
-  { -- Colorscheme
-    "rose-pine/nvim",
-    name = "rose-pine",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("rose-pine").setup({
-        styles = {
-          italic = false,
-        },
-        disable_background = true,
-        disable_float_background = true,
-      })
-
-      vim.cmd("colorscheme rose-pine-moon")
-    end,
-  },
-
-  -- Detect tabstop and shiftwidth automatically
-  { "NMAC427/guess-indent.nvim", opts = {} },
-
+-- Add plugins
+vim.pack.add({
+  -- Colorscheme
+  { src = "https://github.com/rose-pine/neovim" },
+  -- Guess indent
+  { src = "https://github.com/NMAC427/guess-indent.nvim" },
   -- Gitsigns
-  { "lewis6991/gitsigns.nvim", opts = {} },
+  { src = "https://github.com/lewis6991/gitsigns.nvim" },
+  -- LSP + Mason
+  { src = "https://github.com/neovim/nvim-lspconfig" },
+  { src = "https://github.com/j-hui/fidget.nvim" },
+  { src = "https://github.com/mason-org/mason.nvim" },
+  { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+  -- Treesitter
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+  -- Telescope
+  { src = "https://github.com/nvim-telescope/telescope.nvim" },
+  { src = "https://github.com/nvim-lua/plenary.nvim" },
+  -- Autoformat
+  { src = "https://github.com/stevearc/conform.nvim" },
+  -- Autocomplete
+  { src = "https://github.com/saghen/blink.cmp" },
+})
 
-  { -- LSP Config + Mason
-    "mason-org/mason-lspconfig.nvim",
-    opts = {},
-    dependencies = {
-      { "mason-org/mason.nvim", opts = {} },
-      "neovim/nvim-lspconfig",
+-- Configure plugins
+require("rose-pine").setup({
+  styles = {
+    italic = false,
+  },
+  disable_background = true,
+  disable_float_background = true,
+})
+vim.cmd("colorscheme rose-pine-moon")
+
+require("guess-indent").setup({})
+
+require("mason").setup({})
+require("mason-lspconfig").setup({})
+
+require("fidget").setup({
+  notification = { window = { winblend = 0 } },
+})
+
+require("blink.cmp").setup({
+  fuzzy = { implementation = "lua" },
+})
+
+require("conform").setup({
+  formatters_by_ft = {
+    lua = { "stylua" },
+    markdown = { "mdformat" },
+    javascript = { "prettierd" },
+    html = { "prettierd" },
+    css = { "prettierd" },
+  },
+})
+vim.keymap.set("n", "<leader>F", function()
+  require("conform").format({ async = true, lsp_format = "fallback" })
+end)
+
+require("nvim-treesitter.configs").setup({
+  ensure_installed = {
+    "bash",
+    "html",
+    "c",
+    "diff",
+    "lua",
+    "vim",
+    "vimdoc",
+    "query",
+    "markdown",
+    "markdown_inline",
+  },
+  sync_install = false,
+  auto_install = true,
+  highlight = { enable = true },
+  indent = { enable = true },
+})
+
+require("telescope").setup({
+  defaults = {
+    file_ignore_patterns = {
+      "%.git[/\\]",
+      "node_modules",
+      "target[/\\]",
+      "build[/\\]",
     },
   },
-
-  { -- Autocompletion
-    "saghen/blink.cmp",
-    version = "1.*",
-    ---@module 'blink.cmp'
-    ---@type blink.cmp.Config
-    opts = {
-      fuzzy = { implementation = "prefer_rust" },
+  pickers = {
+    find_files = {
+      hidden = true,
     },
   },
+})
 
-  { -- Autoformat
-    "stevearc/conform.nvim",
-    config = function()
-      require("conform").setup({
-        formatters_by_ft = {
-          lua = { "stylua" },
-          markdown = { "mdformat" },
-          javascript = { "prettierd" },
-          html = { "prettierd" },
-          css = { "prettierd" },
-        },
-      })
-
-      vim.keymap.set("n", "<leader>F", function()
-        require("conform").format({ async = true, lsp_format = "fallback" })
-      end)
-    end,
-  },
-
-  { -- Treesitter
-    "nvim-treesitter/nvim-treesitter",
-    lazy = false,
-    build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = {
-          "bash",
-          "html",
-          "c",
-          "diff",
-          "lua",
-          "vim",
-          "vimdoc",
-          "query",
-          "markdown",
-          "markdown_inline",
-        },
-        sync_install = false,
-        auto_install = true,
-        highlight = { enable = true },
-        indent = { enable = true },
-      })
-    end,
-  },
-
-  { -- Telescope
-    "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("telescope").setup({
-        defaults = {
-          file_ignore_patterns = {
-            "%.git[/\\]",
-            "node_modules",
-            "target[/\\]",
-            "build[/\\]",
-          },
-        },
-        pickers = {
-          find_files = {
-            hidden = true,
-          },
-        },
-      })
-
-      local builtin = require("telescope.builtin")
-      vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
-      vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
-      vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
-      vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
-    end,
-  },
-}
-
--- Setup lazy.nvim
-require("lazy").setup({ spec = plugins })
+local builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
+vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
+vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
+vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
 
 -- Misc settings go down here
