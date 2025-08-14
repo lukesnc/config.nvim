@@ -43,20 +43,20 @@ vim.pack.add({
   { src = "https://github.com/NMAC427/guess-indent.nvim" },
   -- Gitsigns
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
-  -- LSP + Mason
+  -- LSP
   { src = "https://github.com/neovim/nvim-lspconfig" },
-  { src = "https://github.com/j-hui/fidget.nvim" },
   { src = "https://github.com/mason-org/mason.nvim" },
   { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+  { src = "https://github.com/j-hui/fidget.nvim" },
   -- Treesitter
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
   -- Telescope
-  { src = "https://github.com/nvim-telescope/telescope.nvim" },
+  { src = "https://github.com/nvim-telescope/telescope.nvim", version = vim.version.range("0.1.*") },
   { src = "https://github.com/nvim-lua/plenary.nvim" },
   -- Autoformat
   { src = "https://github.com/stevearc/conform.nvim" },
   -- Autocomplete
-  { src = "https://github.com/saghen/blink.cmp" },
+  { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") },
 })
 
 -- Configure plugins
@@ -79,7 +79,7 @@ require("fidget").setup({
 })
 
 require("blink.cmp").setup({
-  fuzzy = { implementation = "lua" },
+  fuzzy = { implementation = "prefer_rust" },
 })
 
 require("conform").setup({
