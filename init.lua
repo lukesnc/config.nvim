@@ -94,8 +94,6 @@ local plugins = {
   { -- Autocompletion
     "saghen/blink.cmp",
     version = "1.*",
-    ---@module 'blink.cmp'
-    ---@type blink.cmp.Config
     opts = {
       fuzzy = { implementation = "prefer_rust" },
     },
@@ -158,6 +156,8 @@ local plugins = {
             "node_modules",
             "target[/\\]",
             "build[/\\]",
+            "%.trash[/\\]",
+            "%.obsidian[/\\]",
           },
         },
         pickers = {
